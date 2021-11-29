@@ -8,12 +8,8 @@ import argparse
 dtmf = {(697, 1209): "1", (697, 1336): "2", (697, 1477): "3", (770, 1209): "4", (770, 1336): "5", (770, 1477): "6",
         (852, 1209): "7", (852, 1336): "8", (852, 1477): "9", (941, 1209): "*", (941, 1336): "0", (941, 1477): "#"}
 
-parser = argparse.ArgumentParser(description="Extract phone numbers from an audio recording of the dial tones.")
+parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--plot", help="show graphs to debug", action="store_true")
-parser.add_argument("-t", type=int, metavar="F", help="acceptable frequency error (in hertz, 20 by default)", default=20)
-parser.add_argument("-i", type=float, metavar='T', help="process by T seconds intervals (0.04 by default)",
-                    default=0.05)
-
 parser.add_argument('file', type=argparse.FileType('r'))
 
 args = parser.parse_args()
@@ -29,7 +25,7 @@ except ValueError:
     print("Please give a wav file.")
     exit()
 
-precision = args.i
+precision = 0.04
 
 duration = len(data) / fps
 
